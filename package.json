@@ -4,6 +4,7 @@
   "description": "copy youtube on my own power",
   "scripts": {
     "dev": "nodemon --exec babel-node src/server.js",
+    "t": "nodemon --exec babel-node src/test.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
