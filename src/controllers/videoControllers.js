@@ -1,4 +1,7 @@
-export const trending = (req, res) => res.send("Home Page Videos");
+export const trending = (req, res) =>
+  res.send(
+    "<!DOCTYPE html><html lang='ko'><head><title>Wetube</title></head><body><h1>Home</h1></body></html>"
+  );
 export const see = (req, res) => {
   console.log(req.params);
   return res.send(`Watch Video #${req.params.id}`);
