@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "copy youtube on my own power",
   "scripts": {
-    "dev": "nodemon --exec babel-node src/server.js",
+    "dev": "nodemon --exec babel-node src/init.js",
     "t": "nodemon --exec babel-node src/test.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
