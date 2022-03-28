@@ -13,14 +13,16 @@ html(land="ko")
                         a(href="/") Home
                     if loggedIn 
                         li  
-                            a(href="/logout") Log Out
+                            a(href="/users/edit") Edit profile
+                        li  
+                            a(href="/users/logout") Log Out
                         li 
                             a(href="/my-profile") #{loggedInUser.name}의 Profile
                     else
                         li    
                             a(href="/join") Join
                         li    
-                            a(href="/Login") Login
+                            a(href="/login") Login
                     li      
                         a(href="/search") Search
                     li      
