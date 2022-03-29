@@ -142,14 +142,16 @@ export const logout = (req, res) => {
 export const getEdit = (req, res) => {
   return res.render("edit-profile", { pageTitle: "Edit Profile" });
 };
+
 export const postEdit = async (req, res) => {
   const {
     session: {
-      user: { _id, email: sessionEmail, username: sessionUsername },
+      user: { _id, email: sessionEmail, username: sessionUsername, avatarUrl },
     },
     body: { name, email, username, location },
+    file,
   } = req;
-
+  console.log(file);
   let searchParam = [];
   if (sessionEmail !== email) {
     searchParam.push({ email });
@@ -170,6 +172,7 @@ export const postEdit = async (req, res) => {
   const updateUser = await User.findByIdAndUpdate(
     _id,
     {
+      avatarUrl: file ? file.path : avatarUrl,
       name,
       email,
       username,
@@ -187,5 +190,41 @@ export const postEdit = async (req, res) => {
   req.session.user = updateUser;
   return res.redirect("/users/edit");
 };
-export const edit = (req, res) => res.send("Edit User");
+
+export const getChangePassword = (req, res) => {
+  if (req.session.user.socialOnly === true) {
+    return res.redirect("/");
+  }
+  return res.render("users/change-password", { pageTitle: "Change Password" });
+};
+
+export const postChangePassword = async (req, res) => {
+  const {
+    session: {
+      user: { _id, password },
+    },
+    body: { oldPassword, newPassword, newPasswordConfirmation },
+  } = req;
+  const ok = await bcrypt.compare(oldPassword, password);
+  if (!ok) {
+    return res.status(400).render("users/change-password", {
+      pageTitle: "Change Password",
+      errorMessage: "The current password is incorrect",
+    });
+  }
+  if (newPassword !== newPasswordConfirmation) {
+    return res.status(400).render("users/change-password", {
+      pageTitle: "Change Password",
+      errorMessage: "The password does not match the confimation",
+    });
+  }
+  const user = await User.findById(_id);
+  console.log("Old password", user.password);
+  user.password = newPassword;
+  console.log("New unhashed pw", user.password);
+  await user.save();
+  console.log("new pw", user.password);
+  req.session.user.password = user.password;
+  return res.redirect("/users/logout");
+};
 export const see = (req, res) => res.send("See User");
