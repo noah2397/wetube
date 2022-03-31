@@ -41,6 +41,7 @@ app.get("/add-one", (req, res, next) => {
 app.use(localsMiddleware);
 app.use("/", rootRouter);
 app.use("/uploads", express.static("uploads"));
+app.use("/assets", express.static("assets")); //express한테 assets폴더를 유저들에게 공개 설정
 app.use("/videos", videoRouter);
 app.use("/users", userRouter);
 
