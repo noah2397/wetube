@@ -3,6 +3,7 @@ export const localsMiddleware = (req, res, next) => {
   res.locals.loggedIn = Boolean(req.session.loggedIn);
   res.locals.siteName = "Wetube";
   res.locals.loggedInUser = req.session.user || {};
+  console.log(res.locals.loggedInUser);
   next();
 };
 
@@ -31,6 +32,6 @@ export const avatarUpload = multer({
 export const videoUpload = multer({
   dest: "uploads/videos/",
   limits: {
-    fileSize: 10000000,
+    fileSize: 1000000000000,
   },
 });
