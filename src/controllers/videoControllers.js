@@ -32,15 +32,12 @@ export const getEdit = async (req, res) => {
     user: { _id },
   } = req.session;
   const { id } = req.params;
-  console.log(id);
   const video = await Video.findById(id);
   if (!video) {
     return res.status(404).render("404", { pageTitle: "Video not found" });
   }
   console.log(typeof _id, typeof video.owner);
   if (String(video.owner) !== String(_id)) {
-    console.log(video.owner);
-    console.log("hello", _id);
     return res.status(403).redirect("/");
   }
   return res.render("edit", { pageTitle: `Edit: ${video.title}`, video });

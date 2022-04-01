@@ -5,10 +5,6 @@ block content
     video(src="/"+video.fileUrl, controls)
     p=video.description
     small=video.createdAt
-    br
-    small=video.owner._id
-    br
-    small=loggedInUser._id
     div 
         small Uploaded by  
             a(href=`/users/${video.owner._id}`)=video.owner.name

@@ -19,8 +19,6 @@
 // Defaults
 a {
   color: inherit;
-  background-color: $bg;
-  color: white;
 }
 
 main {
@@ -28,4 +26,9 @@ main {
   width: 100%;
   margin: 0 auto;
   margin-top: 50px;
+}
+
+body {
+  background-color: $bg;
+  color: white;
 }
