@@ -2,7 +2,13 @@ extend ../base
 include ../mixins/video
 
 block content
-    each potato in user.videos 
-        +video(potato)
-    else    
-        li Sorry nothing found.
+    if loggedInUser.socialOnly 
+        img(src=user.avatarUrl).avatar 
+    else 
+        img(src="/" + user.avatarUrl).avatar
+        h3=user.name
+    div.video-grid
+        each video in user.videos
+            +video(video)
+        else
+            span.empty__message No videos found 
